@@ -2,15 +2,18 @@
 @import 'custom'; 
 
 html{
-    position: relative;
+    position:relative;
     min-height: 100%;
 }
-main{margin-bottom: 250px;
-footer .footer{
+main{
+    margin-bottom: 250px;
+}
+
+footer.footer{
     padding: 15px;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 100%;   
+
 }
- 
 
