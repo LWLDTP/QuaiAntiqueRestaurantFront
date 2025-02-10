@@ -2,9 +2,10 @@
 @import 'custom'; 
 
 html{
-    position:relative;
+    position: relative;
     min-height: 100%;
 }
+
 main{
     margin-bottom: 250px;
 }
@@ -12,8 +13,39 @@ main{
 footer.footer{
     padding: 15px;
     position: absolute;
-    bottom: 0;
-    width: 100%;   
-
+    bottom: 0%;
+    width:100%;
 }
 
+p {
+    font-family: $font-family-serif;
+    font-size: 18px;
+}
+
+.hero-scene{
+    position: relative;
+    &::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(../images/FondHeroScene.jpg);
+        background-size: cover;
+        filter: brightness(0.3);
+    }
+    // positionner les élements devant le ::before
+    *{
+        position: relative;
+    }
+
+
+.hero-scene-content{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+     }
+ }
