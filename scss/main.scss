@@ -7,14 +7,15 @@ html{
 }
 
 main{
-    margin-bottom: 250px;
+    margin-bottom: 375px;
 }
 
 footer.footer{
     padding: 15px;
     position: absolute;
     bottom: 0%;
-    width:100%;
+    width: 100%;
+    
 }
 
 p {
@@ -24,6 +25,7 @@ p {
 
 .hero-scene{
     position: relative;
+    margin-bottom: 15px;
     &::before{
         content: "";
         position: absolute;
@@ -31,7 +33,7 @@ p {
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url(../images/FondHeroScene.jpg);
+        background-image: url(../image/FondHeroScene.jpg);
         background-size: cover;
         filter: brightness(0.3);
     }
@@ -54,3 +56,45 @@ p {
     text-align: justify;
  }
 
+
+
+.image-card{
+        position:relative;
+        &:hover{
+            .titre-image,
+            .action-image-buttons{
+
+                opacity: 1;
+            }
+            img{
+                filter: brightness(0.3);
+            }
+        }
+        img{
+            transition: all 0.3s;
+        }
+        .titre-image{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .action-image-buttons{
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+           
+            opacity: 0;
+            transition: all 0.3s;
+        }
+    }
+
+        .form-label{
+        color: $primary;
+    }
