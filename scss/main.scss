@@ -36,6 +36,7 @@ p {
         background-image: url(../image/FondHeroScene.jpg);
         background-size: cover;
         filter: brightness(0.3);
+        
     }
     // positionner les élements devant le ::before
     *{
@@ -99,7 +100,7 @@ p {
         color: $primary;
     }
 
-    .allreservations{
+    .allReservations{
         a{
             display: block;
             color: $black;

@@ -1,93 +1,137 @@
-const inputNom = document.getElementById("NomInput");
-const inputPreNom = document.getElementById("PrenomInput");
-const inputMail = document.getElementById("EmailInput");
+
+// Implémenter le JS de ma page
+const inputName = document.getElementById("NameInput");
+const inputFirstName = document.getElementById("FirstNameInput");
+const inputEmail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
-const inputValidationPassword = document.getElementById("ValidatePasswordInput");
-const btnvalidation = document.getElementById("btn-validation-inscription");
-const form = document.getElementById("signupForm");
+const inputValidatePassword = document.getElementById("ValidatePasswordInput");
+const btnValidate = document.getElementById("btn-validate-signup");
+const subscribeForm = document.getElementById("subscribeForm");
 
-inputNom.addEventListener("keyup", validateForm);
-inputPreNom.addEventListener("keyup", validateForm);
-inputMail.addEventListener("keyup", validateForm);
+inputName.addEventListener("keyup", validateForm);
+inputFirstName.addEventListener("keyup", validateForm);
+inputEmail.addEventListener("keyup", validateForm);
 inputPassword.addEventListener("keyup", validateForm);
-inputValidationPassword.addEventListener("keyup", validateForm);
+inputValidatePassword.addEventListener("keyup", validateForm);
 
-// Fonction de validation pour tout le formulaire
-function validateForm(event) {
-    const nomOk = validateRequired(inputNom);
-    const prenomOk = validateRequired(inputPreNom);
-    const mailOk = validateMail(inputMail);
+btnValidate.addEventListener("click", subscribeUser);
+
+// Fonction permettant de valider tout le formulaire
+function validateForm() {
+    const nameOk = validateRequired(inputName);
+    const firstNameOk = validateRequired(inputFirstName);
+    const emailOk = validateMail(inputEmail);
     const passwordOk = validatePassword(inputPassword);
-    const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidationPassword);
+    const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidatePassword);
 
-    // Si tous les champs sont valides, on active le bouton d'inscription
-    if (nomOk && prenomOk && mailOk && passwordOk && passwordConfirmOk) {
-        btnvalidation.disabled = false; // Active le bouton
+    if (nameOk && firstNameOk && emailOk && passwordOk && passwordConfirmOk) {
+        btnValidate.disabled = false;
     } else {
-        btnvalidation.disabled = true; // Désactive le bouton
+        btnValidate.disabled = true;
+    }
+}
+
+function validateMail(input) {
+    // Définir le Regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mailUser = input.value;
+    if (mailUser.match(emailRegex)) {
+        //C'est OK
+        input.classList.add("is-valid"); // On ajoute la classe Bootstrap is-valid
+        input.classList.remove("is-invalid"); // On supprime la classe is-invalid
+
+        return true;
+
+    } else {
+        // Ce n'est pas OK
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+
+        return false;
+    }
+}
+
+function validatePassword(input) {
+    // Définir le Regex
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+    const passwordUser = input.value;
+    if (passwordUser.match(passwordRegex)) {
+        //C'est OK
+        input.classList.add("is-valid"); // On ajoute la classe Bootstrap is-valid
+        input.classList.remove("is-invalid"); // On supprime la classe is-invalid
+
+        return true;
+
+    } else {
+        // Ce n'est pas OK
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+
+        return false;
     }
 }
 
 function validateConfirmationPassword(inputPwd, inputConfirmPwd) {
-    // Vérifier si les mots de passe sont identiques
-    if (inputPwd.value === inputConfirmPwd.value) {
+    if (inputPwd.value == inputConfirmPwd.value) {
         inputConfirmPwd.classList.add("is-valid");
         inputConfirmPwd.classList.remove("is-invalid");
         return true;
+
     } else {
         inputConfirmPwd.classList.add("is-invalid");
         inputConfirmPwd.classList.remove("is-valid");
         return false;
     }
 }
- 
-function validateMail(input){
-        //Définir mon regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const mailUser = input.value;
-        if(mailUser.match(emailRegex)){
-            input.classList.add("is-valid");
-            input.classList.remove("is-invalid"); 
-            return true;
-        }
-        else{
-            input.classList.remove("is-valid");
-            input.classList.add("is-invalid");
-            return false;
-        }
-    }
 
+//Fonction qui vérifie si l'input est vide ou pas
 function validateRequired(input) {
-    // Vérifier que le champ n'est pas vide
-    if (input.value.trim() !== '') {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
+    if (input.value != '') {
+        //C'est OK
+        input.classList.add("is-valid"); // On ajoute la classe Bootstrap is-valid
+        input.classList.remove("is-invalid"); // On supprime la classe is-invalid
+
         return true;
     } else {
-        input.classList.remove("is-valid");
+        // Ce n'est pas OK
         input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+
         return false;
     }
 }
 
-function validatePassword(input) {
-    // Vérifier la robustesse du mot de passe (min. 8 caractères, au moins une majuscule, un chiffre et un caractère spécial)
-    const password = input.value;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+function subscribeUser() { // Inscription nouvel user au clic sur le bouton "Inscription"
+    let dataForm = new FormData(subscribeForm); // Récupère les valeurs dans cles champs du Form
+    
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    if (password.match(passwordRegex)) {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
-        return true;
-    } else {
-        input.classList.remove("is-valid");
-        input.classList.add("is-invalid");
-        return false;
-    }
+    const raw = JSON.stringify({
+        "lastName": dataForm.get("name"),
+        "firstName": dataForm.get("firstName"),
+        "email": dataForm.get("email"),
+        "password": dataForm.get("password")
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    fetch(apiUrl+"registration", requestOptions)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("Erreur lors de l'inscription");
+            }
+        })
+        .then(result => {
+            alert ("Bravo "+dataForm.get("firstName")+", l'inscription s'est bien passé. Vous pouvez vous connecter");
+            document.location.href="/signin";
+        })
+        .catch((error) => console.error(error));
 }
-
-// Prévenir le comportement par défaut du formulaire au cas où tu veux gérer ça avec AJAX
-form.addEventListener("submit", function(event) {
-    event.preventDefault(); // Empêche l'envoi du formulaire si ce n'est pas validé
-    // Tu peux ajouter ici une action pour envoyer le formulaire via AJAX si tout est valide
-});
