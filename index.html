@@ -38,16 +38,19 @@
                   </li>
                    
                   <li class="nav-item">
-                    <a class="nav-link" href="#" >La carte</a>
+                    <a class="nav-link" href="#">La carte</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/allResa" >les réservations</a>
+                    <a class="nav-link" href="/allResa">les réservations</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/account" >Mon compte</a>
+                    <a class="nav-link" href="/account">Mon compte</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/signin" >Connexion</a>
+                  <li class="nav-item" data-show="disconnected">
+                    <a class="nav-link" href="/signin">Connexion</a>
+                  </li>
+                  <li class="nav-item" data-show="connected">
+                    <button class="nav-link" id="signout-btn">déconnexion</button>
                   </li>
                 </ul>
               </div>
@@ -82,7 +85,7 @@
 </footer>
 
  <!-- Lien vers le JS de Bootstrap depuis le CDN -->
-   
+<script src="./js/script.js"></script>
 <script type="module" src="router/router.js"></script>
 <script src="node_modules/boostrap/js/bootstrap.bundle.min.js"></script>
 
