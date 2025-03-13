@@ -25,9 +25,9 @@ function getToken() {
 }
 
 function setCookie(name, value, days) {
-    var expires = "";
+    let expires = "";
     if (days) {
-        var date = new Date();
+        let date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires)" + date.toUTCString();
     }
@@ -35,12 +35,12 @@ function setCookie(name, value, days) {
 }
 
 function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for (const element of ca) {
+        let c = element;
+        while (c.startsWith(' ')) c = c = c.substring(1, c.length);
+        if (c.startsWith(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -101,4 +101,29 @@ function sanitizeHtml(text){
     const tempHtml = document.createElement('div');
     tempHtml.textContent = text;
     return tempHtml.innerHTML;
+}
+
+function getInfosUser() {
+    let myHeaders = new Headers();
+    myHeaders.append("X-AUTH-TOKEN", getToken());
+    let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+
+    fetch(apiUrl + "account/me", requestOptions)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log("Impossible de récupérer les informations de l'utilisateur");
+            }
+        })
+        .then(result => {
+            return result;
+        })
+        .catch(error => {
+            console.error("Erreur lors de la récupération des données utilisateur", error);
+        });
 }
