@@ -10,6 +10,7 @@ function getRole() {
     return getCookie(roleCookieName);
 }
 
+
 function signout() {
     eraseCookie(tokenCookieName);
     eraseCookie(roleCookieName);
